@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Studies | MGCPM</title>
+<meta name="description" content="Real results from real campaigns. See how MGCPM has generated 500M+ views for artists, brands, podcasters and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #FAFAF8;
+    color: #111;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: #FAFAF8;
+    border-bottom: 1px solid #E8E8E8;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+  .logo { font-weight: 700; font-size: 18px; letter-spacing: 0.04em; color: #111; text-decoration: none; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 13px; color: #777; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: #111; }
+  .btn-book {
+    background: #111; color: #fff; border: none; padding: 10px 22px;
+    font-size: 13px; font-weight: 600; cursor: pointer; border-radius: 100px;
+    font-family: 'Inter', sans-serif; text-decoration: none; transition: background 0.2s;
+  }
+  .btn-book:hover { background: #333; }
+
+  /* HERO */
+  .hero {
+    padding: 80px 48px 64px;
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff; border: 1px solid #E5E5E5; border-radius: 100px;
+    padding: 6px 16px; font-size: 12px; color: #666; font-weight: 500; margin-bottom: 28px;
+  }
+  .hero-tag-dot { width: 7px; height: 7px; background: #22C55E; border-radius: 50%; flex-shrink: 0; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 60px);
+    font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; color: #111; margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: italic; color: #555; }
+  .hero-sub { font-size: 16px; color: #777; line-height: 1.8; max-width: 480px; margin: 0 auto; }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #E8E8E8;
+    border-bottom: 1px solid #E8E8E8;
+    background: #fff;
+    margin-top: 56px;
+  }
+  .stat-cell { padding: 32px 48px; border-right: 1px solid #E8E8E8; text-align: center; }
+  .stat-cell:last-child { border-right: none; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: #111; }
+  .stat-label { font-size: 12px; color: #AAA; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-top: 4px; }
+
+  /* GRID */
+  .section { padding: 72px 48px; max-width: 1100px; margin: 0 auto; }
+  .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #BBB; margin-bottom: 12px; }
+  .section-h2 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 3vw, 38px); font-weight: 700; color: #111; margin-bottom: 48px; }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .case-card {
+    background: #fff;
+    border: 1px solid #E8E8E8;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .case-card:hover { border-color: #CCC; transform: translateY(-2px); }
+
+  .case-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    background: #F0F0F0;
+  }
+
+  .case-body { padding: 22px; }
+
+  .case-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700; color: #111; margin-bottom: 14px;
+  }
+
+  .case-stats { display: flex; flex-direction: column; gap: 8px; }
+
+  .case-stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #F8F8F6;
+    border-radius: 8px;
+  }
+
+  .case-stat-label { font-size: 11px; color: #AAA; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  .case-stat-val { font-size: 14px; font-weight: 700; color: #111; }
+  .case-stat-val.views { color: #111; }
+
+  /* CTA */
+  .cta-bottom {
+    margin: 0 48px 80px;
+    background: #111;
+    border-radius: 24px;
+    padding: 72px 48px;
+    text-align: center;
+  }
+  .cta-bottom h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: #fff; margin-bottom: 14px; }
+  .cta-bottom p { font-size: 15px; color: #888; margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .btn-white {
+    background: #fff; color: #111; border: none; padding: 16px 36px;
+    font-size: 15px; font-weight: 700; cursor: pointer; border-radius: 100px;
+    font-family: 'Inter', sans-serif; text-decoration: none; display: inline-block; transition: background 0.2s;
+  }
+  .btn-white:hover { background: #F0F0F0; }
+
+  /* FOOTER */
+  footer {
+    padding: 48px; border-top: 1px solid #E8E8E8;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+  }
+  .footer-copy { font-size: 13px; color: #BBB; }
+  .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+  .footer-links a { font-size: 13px; color: #AAA; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: #111; }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 56px 24px 48px; }
+    .stats-bar { grid-template-columns: 1fr 1fr; }
+    .stat-cell:nth-child(2) { border-right: none; }
+    .stat-cell:nth-child(3) { border-top: 1px solid #E8E8E8; grid-column: 1 / -1; }
+    .section { padding: 48px 24px; }
+    .cards-grid { grid-template-columns: 1fr 1fr; }
+    .cta-bottom { margin: 0 24px 60px; padding: 48px 28px; }
+    footer { padding: 36px 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .cards-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">MGCPM</a>
+  <ul class="nav-links">
+    <li><a href="case-studies.html" class="active">Case Studies</a></li>
+    <li><a href="index.html#how-it-works">How It Works</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+  </ul>
+  <a href="https://forms.gle/yv1mMJZ3KeQvJdNCA" target="_blank" class="btn-book">Book a Call</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag"><span class="hero-tag-dot"></span>Real campaigns. Real numbers.</div>
+  <h1>Results that speak <em>for themselves</em></h1>
+  <p class="hero-sub">Every campaign below is a real client. Real views, real clips, real distribution — no inflated numbers.</p>
+</div>
+
+<div class="stats-bar" style="grid-template-columns: repeat(2, 1fr);">
+  <div class="stat-cell">
+    <div class="stat-num">500M+</div>
+    <div class="stat-label">Total Views Generated</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">20,000+</div>
+    <div class="stat-label">Clips Created in 2026</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-eyebrow">Case Studies</div>
+  <h2 class="section-h2">All campaigns</h2>
+  <div class="cards-grid">
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_82338c5a60dc4aa39cef431a3e46a175~mv2.png" alt="Show Nemoto">
+      <div class="case-body">
+        <div class="case-name">Show Nemoto</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">8.9M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">687+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_eab2c0c1402648a4989652dd092f58bd~mv2.png" alt="Dooly">
+      <div class="case-body">
+        <div class="case-name">Dooly</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">10M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">996</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_e3770543c9ef49aab80cda6798a2c60c~mv2.png" alt="BillyTheGoat">
+      <div class="case-body">
+        <div class="case-name">BillyTheGoat</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">50M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">642</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_f59eb2e1fc974ee690771573852b5317~mv2.png" alt="PickPlug">
+      <div class="case-body">
+        <div class="case-name">PickPlug</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">1.5M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">230+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_61b4ac2c1e51497e8906ac03d558b067~mv2.png" alt="Filthy Fellas">
+      <div class="case-body">
+        <div class="case-name">Filthy Fellas</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">35M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">542</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_82d401e91c2f4a3890e4677d32371d63~mv2.png" alt="Chris Eubank Jr">
+      <div class="case-body">
+        <div class="case-name">Chris Eubank Jr</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">1.5M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">1 promo clip</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_f9f25f3e39b144ce81afab863ecd7532~mv2.png" alt="vidIQ">
+      <div class="case-body">
+        <div class="case-name">vidIQ</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">6.5M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">1,652+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_78f8801b9054456c80dee25d89d7753e~mv2.png" alt="From My Left">
+      <div class="case-body">
+        <div class="case-name">From My Left</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">3.5M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">60</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_5589e3b19b024524a29c84f544967734~mv2.png" alt="Brandon McCaghren">
+      <div class="case-body">
+        <div class="case-name">Brandon McCaghren</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">2.5M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">221+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_b820b3580b8244e483ce392dc4b2b438~mv2.png" alt="Da Man">
+      <div class="case-body">
+        <div class="case-name">Da Man</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">4.8M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">466+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_c20aca03417e406a978454d076839042~mv2.png" alt="vidIQ Podcast">
+      <div class="case-body">
+        <div class="case-name">vidIQ Podcast</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">7.1M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">912+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_fe97a5486bcd4513b324f488100da486~mv2.png" alt="LeoStayTrill">
+      <div class="case-body">
+        <div class="case-name">LeoStayTrill</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">6.7M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">325+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_90f9c15637774d0a9c109afa32e07ab7~mv2.png" alt="The Long Play">
+      <div class="case-body">
+        <div class="case-name">The Long Play</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">2.3M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">240+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_7839edf8770f42e9a00b4cee53761662~mv2.png" alt="Yemi">
+      <div class="case-body">
+        <div class="case-name">Yemi</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">1.6M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">262+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_263353d34a174a6fb77ba1fe4b9f114c~mv2.png" alt="Toby Corban">
+      <div class="case-body">
+        <div class="case-name">Toby Corban</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">1M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">469+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <img class="case-img" src="https://static.wixstatic.com/media/762217_c7344e3ca0f04a5d93a3e981aaf82a22~mv2.png" alt="Ashvma">
+      <div class="case-body">
+        <div class="case-name">Ashvma</div>
+        <div class="case-stats">
+          <div class="case-stat"><span class="case-stat-label">Views Generated</span><span class="case-stat-val views">6.7M+</span></div>
+          <div class="case-stat"><span class="case-stat-label">Clips Created</span><span class="case-stat-val">325+</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="cta-bottom">
+  <h2>Want results like these?</h2>
+  <p>Fill out the form below — takes 2 minutes. We'll send you a personalised breakdown using your own content as examples.</p>
+  <a href="https://forms.gle/yv1mMJZ3KeQvJdNCA" target="_blank" class="btn-white">Apply for a Campaign →</a>
+</div>
+
+<footer>
+  <div>
+    <div style="font-weight:700;font-size:15px;margin-bottom:6px;">MGCPM</div>
+    <div class="footer-copy">© 2025 MGCPM. All rights reserved.</div>
+  </div>
+  <div class="footer-links">
+    <a href="case-studies.html">Case Studies</a>
+    <a href="https://www.instagram.com/mgcpm.07" target="_blank">Instagram</a>
+    <a href="https://www.youtube.com/@Mgcpm" target="_blank">YouTube</a>
+    <a href="https://www.mgcpm.com/contact-4">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
