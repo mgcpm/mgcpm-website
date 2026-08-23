@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MGCPM | #1 Clipping Agency</title>
+<meta name="description" content="MGCPM is the #1 clipping distribution agency. 1,000+ elite clippers posting your content across TikTok, Instagram, YouTube Shorts and X. 500M+ views generated. Pay per view.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #FAFAF8;
+    color: #111;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: #FAFAF8;
+    border-bottom: 1px solid #E8E8E8;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+
+  .logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    color: #111;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: #777;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: #111; }
+
+  .btn-book {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn-book:hover { background: #333; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 88px 48px 64px;
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid #E5E5E5;
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+
+  .hero-tag-dot {
+    width: 7px;
+    height: 7px;
+    background: #22C55E;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: #111;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: #555;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: #777;
+    line-height: 1.8;
+    max-width: 520px;
+    margin: 0 auto 40px;
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover { background: #333; }
+
+  .btn-ghost {
+    background: transparent;
+    color: #111;
+    border: 1.5px solid #DDD;
+    padding: 15px 30px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s;
+  }
+
+  .btn-ghost:hover { border-color: #999; }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    border-top: 1px solid #E8E8E8;
+    border-bottom: 1px solid #E8E8E8;
+    background: #fff;
+    overflow: hidden;
+    margin-top: 64px;
+  }
+
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker 28s linear infinite;
+  }
+
+  .ticker-track:hover { animation-play-state: paused; }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .tick-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 22px 52px;
+    border-right: 1px solid #E8E8E8;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .tick-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #111;
+  }
+
+  .tick-label {
+    font-size: 11px;
+    color: #AAA;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── VIDEO ── */
+  .video-section {
+    padding: 72px 48px 0;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .video-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #BBB;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.10);
+  }
+
+  .video-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  /* ── CLIENT SCROLL ── */
+  .clients-section {
+    padding: 72px 0 0;
+  }
+
+  .clients-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #BBB;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .clients-track-wrap {
+    overflow: hidden;
+    border-top: 1px solid #E8E8E8;
+    border-bottom: 1px solid #E8E8E8;
+    background: #fff;
+    padding: 24px 0;
+  }
+
+  .clients-track {
+    display: flex;
+    width: max-content;
+    animation: clientScroll 30s linear infinite;
+    align-items: center;
+    gap: 0;
+  }
+
+  .clients-track:hover { animation-play-state: paused; }
+
+  @keyframes clientScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .client-item {
+    flex-shrink: 0;
+    width: 130px;
+    height: 130px;
+    margin: 0 16px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #EBEBEB;
+    background: #F5F5F5;
+  }
+
+  .client-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 80px 48px;
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #BBB;
+    margin-bottom: 12px;
+  }
+
+  .section-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #111;
+    margin-bottom: 14px;
+  }
+
+  .section-sub {
+    font-size: 15px;
+    color: #888;
+    line-height: 1.8;
+    max-width: 500px;
+    margin-bottom: 48px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #E8E8E8;
+    margin: 0 48px;
+  }
+
+  /* ── PROCESS ── */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .process-card {
+    background: #fff;
+    border: 1px solid #E8E8E8;
+    border-radius: 20px;
+    padding: 36px 32px;
+  }
+
+  .process-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #EEE;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .process-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 10px;
+  }
+
+  .process-body {
+    font-size: 14px;
+    color: #999;
+    line-height: 1.8;
+  }
+
+  /* ── WHO IT'S FOR ── */
+  .niche-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .niche-tag {
+    border: 1px solid #E0E0E0;
+    color: #777;
+    padding: 9px 18px;
+    font-size: 13px;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .niche-tag:hover { border-color: #111; color: #111; }
+
+  /* ── VS ── */
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .vs-card {
+    background: #fff;
+    border: 1px solid #E8E8E8;
+    border-radius: 20px;
+    padding: 32px;
+  }
+
+  .vs-card.mgcpm {
+    background: #111;
+    border-color: #111;
+  }
+
+  .vs-header {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  .vs-header.them { color: #BBB; }
+  .vs-header.us   { color: #fff; }
+
+  .vs-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 14px;
+    color: #666;
+  }
+
+  .vs-card.mgcpm .vs-row {
+    color: #CCC;
+    border-bottom-color: rgba(255,255,255,0.07);
+  }
+
+  .vs-row:last-child { border-bottom: none; }
+
+  .ck { color: #22C55E; font-size: 16px; }
+  .cx { color: #CCC; font-size: 16px; }
+  .vs-card.mgcpm .cx { color: #444; }
+
+  /* ── FAQ ── */
+  .faq-list { border-top: 1px solid #E8E8E8; }
+
+  .faq-item {
+    border-bottom: 1px solid #E8E8E8;
+    cursor: pointer;
+  }
+
+  .faq-q {
+    font-size: 15px;
+    font-weight: 500;
+    color: #111;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 0;
+    user-select: none;
+  }
+
+  .faq-icon {
+    color: #CCC;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .faq-a {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.85;
+    max-width: 680px;
+    padding-bottom: 22px;
+    display: none;
+  }
+
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-item.open .faq-a { display: block; }
+
+  /* ── CTA BOTTOM ── */
+  .cta-bottom {
+    margin: 0 48px 80px;
+    background: #111;
+    border-radius: 24px;
+    padding: 72px 48px;
+    text-align: center;
+  }
+
+  .cta-bottom h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .cta-bottom p {
+    font-size: 15px;
+    color: #888;
+    margin-bottom: 36px;
+  }
+
+  .btn-white {
+    background: #fff;
+    color: #111;
+    border: none;
+    padding: 16px 36px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+
+  .btn-white:hover { background: #F0F0F0; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 48px 48px;
+    border-top: 1px solid #E8E8E8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-left .logo-f {
+    font-weight: 700;
+    font-size: 16px;
+    color: #111;
+    margin-bottom: 6px;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: #BBB;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: #AAA;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: #111; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 60px 24px 48px; }
+    .video-section { padding: 48px 24px 0; }
+    .section { padding: 56px 24px; }
+    .divider { margin: 0 24px; }
+    .process-grid { grid-template-columns: 1fr; }
+    .vs-grid { grid-template-columns: 1fr; }
+    .cta-bottom { margin: 0 24px 60px; padding: 48px 28px; }
+    footer { padding: 36px 24px; }
+    .tick-item { padding: 18px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">MGCPM</a>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#who">Who It's For</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="https://forms.gle/yv1mMJZ3KeQvJdNCA" target="_blank" class="btn-book">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">
+    <span class="hero-tag-dot"></span>
+    500M+ views generated
+  </div>
+  <h1>#1 Clipping Agency —<br>Launch Your <em>Viral Campaign</em></h1>
+  <p class="hero-sub">Generate thousands of high-quality clips, driving millions of views straight to your brand. 1,000+ elite clippers. 4 platforms. Pay per view.</p>
+  <div class="cta-row">
+    <a href="https://forms.gle/yv1mMJZ3KeQvJdNCA" target="_blank" class="btn-primary">Launch a Campaign →</a>
+    <a href="https://www.mgcpm.com/s-projects-basic" target="_blank" class="btn-ghost">See Case Studies</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="tick-item"><span class="tick-num">500M+</span><span class="tick-label">Views Generated</span></div>
+    <div class="tick-item"><span class="tick-num">1,000s</span><span class="tick-label">Clips Every Month</span></div>
+    <div class="tick-item"><span class="tick-num">4</span><span class="tick-label">Platforms Covered</span></div>
+    <div class="tick-item"><span class="tick-num">24/7</span><span class="tick-label">Campaign Active</span></div>
+    <div class="tick-item"><span class="tick-num">CPM</span><span class="tick-label">Pay Per View</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="tick-item"><span class="tick-num">500M+</span><span class="tick-label">Views Generated</span></div>
+    <div class="tick-item"><span class="tick-num">1,000s</span><span class="tick-label">Clips Every Month</span></div>
+    <div class="tick-item"><span class="tick-num">4</span><span class="tick-label">Platforms Covered</span></div>
+    <div class="tick-item"><span class="tick-num">24/7</span><span class="tick-label">Campaign Active</span></div>
+    <div class="tick-item"><span class="tick-num">CPM</span><span class="tick-label">Pay Per View</span></div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="video-section">
+  <div class="video-section-label">See It In Action</div>
+  <div class="video-wrap">
+    <video controls style="position:absolute;top:0;left:0;width:100%;height:100%;background:#000;">
+      <source src="video.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<!-- CLIENTS -->
+<div class="clients-section">
+  <div class="clients-label">Clients We've Worked With</div>
+  <div class="clients-track-wrap">
+    <div class="clients-track">
+      <!-- Set 1 — actual clients only -->
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_3ccd23f768da490a910adf5b316258a2~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_cf397d2e37154e28812cfe0507e3f591~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_e3e90d0aeb2846d6bb09c15823d7c52a~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_28b6fadc1ef243c7b5f1b6e0f99af51f~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_f6eaba5263344748ba5efdcc8d8f38d1~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_6b2c2f49af16496a97af3eed5b5bbcb5~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_cf74f8874a6c4e2faf96ed0a8d45cf40~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_c5ddffacb9e645bbb549d11dfb73d4e3~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_5e90e853c74a4023870a1fdafdea4bf2~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_dcfe0c9a79804242a50a3e7f13e3f2a7~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="70.png" alt="Brandon McCaghren" loading="lazy"></div>
+      <div class="client-item"><img src="71.png" alt="LeoStayTrill" loading="lazy"></div>
+      <div class="client-item"><img src="72.png" alt="Ashvma" loading="lazy"></div>
+      <!-- Set 2 — duplicate for seamless loop -->
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_3ccd23f768da490a910adf5b316258a2~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_cf397d2e37154e28812cfe0507e3f591~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_e3e90d0aeb2846d6bb09c15823d7c52a~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_28b6fadc1ef243c7b5f1b6e0f99af51f~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_f6eaba5263344748ba5efdcc8d8f38d1~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_6b2c2f49af16496a97af3eed5b5bbcb5~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_cf74f8874a6c4e2faf96ed0a8d45cf40~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_c5ddffacb9e645bbb549d11dfb73d4e3~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_5e90e853c74a4023870a1fdafdea4bf2~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="https://static.wixstatic.com/media/762217_dcfe0c9a79804242a50a3e7f13e3f2a7~mv2.png" alt="Client" loading="lazy"></div>
+      <div class="client-item"><img src="70.png" alt="Brandon McCaghren" loading="lazy"></div>
+      <div class="client-item"><img src="71.png" alt="LeoStayTrill" loading="lazy"></div>
+      <div class="client-item"><img src="72.png" alt="Ashvma" loading="lazy"></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" style="margin-top:72px;">
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works">
+  <div class="section-eyebrow">The Process</div>
+  <h2 class="section-h2">Launching a campaign is easy</h2>
+  <p class="section-sub">Speed and quality are the keys for us when running a campaign — it's a good thing we've got both.</p>
+  <div class="process-grid">
+    <div class="process-card">
+      <div class="process-num">01</div>
+      <div class="process-title">Book a call</div>
+      <p class="process-body">Apply for a personalised breakdown. We'll outline your exact content goals, build a campaign structure around them, and go through the clipping styles that best suit your content — including which regions to target and how to funnel viewers back to you.</p>
+    </div>
+    <div class="process-card">
+      <div class="process-num">02</div>
+      <div class="process-title">Clippers go live</div>
+      <p class="process-body">Once we're live, clippers begin posting on designated pages using the agreed styles, with the goal of engagement and funnelling viewers back to you. High-quality clips distributed across TikTok, Instagram, YouTube Shorts, and X — your choice of platforms.</p>
+    </div>
+    <div class="process-card">
+      <div class="process-num">03</div>
+      <div class="process-title">Track and scale</div>
+      <p class="process-body">Full daily analytics on every clip and every page. We find what's working and push harder on it. This is real distribution. You'll have access to all the data, and once the campaign is over you get the top-performing clips too.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHO IT'S FOR -->
+<section class="section" id="who">
+  <div class="section-eyebrow">Who It's For</div>
+  <h2 class="section-h2">Can this work for me?</h2>
+  <p class="section-sub">Instead of just saying "anyone can benefit" — as true as that is — here's who has actually worked with MGCPM and seen results.</p>
+  <div class="niche-grid">
+    <span class="niche-tag">Musicians &amp; Artists</span>
+    <span class="niche-tag">DJs &amp; Producers</span>
+    <span class="niche-tag">Podcasters</span>
+    <span class="niche-tag">Record Labels</span>
+    <span class="niche-tag">Rappers</span>
+    <span class="niche-tag">YouTubers</span>
+    <span class="niche-tag">Streamers</span>
+    <span class="niche-tag">Apps</span>
+    <span class="niche-tag">Casinos</span>
+    <span class="niche-tag">Politics</span>
+    <span class="niche-tag">Movies &amp; TV Shows</span>
+    <span class="niche-tag">Coaches &amp; Educators</span>
+    <span class="niche-tag">Fitness Creators</span>
+    <span class="niche-tag">Motivational Speakers</span>
+  </div>
+  <p style="font-size:14px;color:#AAA;margin-top:24px;">Don't see your niche? <a href="https://www.mgcpm.com/contact-4" style="color:#111;font-weight:500;">Get in touch →</a></p>
+</section>
+
+<hr class="divider">
+
+<!-- VS -->
+<section class="section">
+  <div class="section-eyebrow">Why MGCPM</div>
+  <h2 class="section-h2">Built different from day one</h2>
+  <p class="section-sub">Most agencies delegate and disappear. We built MGCPM from the inside — actual clipping experience, elite clippers, and full transparency.</p>
+  <div class="vs-grid">
+    <div class="vs-card">
+      <div class="vs-header them">Other Agencies</div>
+      <div class="vs-row"><span class="cx">✕</span> No real clipping experience</div>
+      <div class="vs-row"><span class="cx">✕</span> No quality control on clips</div>
+      <div class="vs-row"><span class="cx">✕</span> Delegate and disappear</div>
+      <div class="vs-row"><span class="cx">✕</span> Poor clipper communication</div>
+      <div class="vs-row"><span class="cx">✕</span> Slow, limited updates</div>
+      <div class="vs-row"><span class="cx">✕</span> Don't improve your content</div>
+    </div>
+    <div class="vs-card mgcpm">
+      <div class="vs-header us">MGCPM</div>
+      <div class="vs-row"><span class="ck">✓</span> Built by clippers, for results</div>
+      <div class="vs-row"><span class="ck">✓</span> Access to elite, vetted clippers</div>
+      <div class="vs-row"><span class="ck">✓</span> Fully transparent, always</div>
+      <div class="vs-row"><span class="ck">✓</span> 24/7 campaign operation</div>
+      <div class="vs-row"><span class="ck">✓</span> Constant communication</div>
+      <div class="vs-row"><span class="ck">✓</span> Content ideation included</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="section-eyebrow">FAQ</div>
+  <h2 class="section-h2">Everything you need to know</h2>
+  <p class="section-sub">All the answers before you get started.</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">What is MGCPM? <span class="faq-icon">+</span></div>
+      <div class="faq-a">MGCPM is a content distribution agency specialising in clipping — taking your existing video content and distributing it at scale across TikTok, Instagram, YouTube Shorts, and X through a network of 1,000+ elite clippers. We also help with content quality and ideation on your brand pages.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How can this benefit me? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Turn a few pieces of content per week into thousands of clips per month through mass distribution. Instead of paying per clip, you pay per view — so every pound goes directly toward reach. For brands, this means mass exposure using viral short-form content. This is the new wave of advertising your competitors are already using.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What does it cost? <span class="faq-icon">+</span></div>
+      <div class="faq-a">We grow with you. Whether it's a $3k test budget or a $300k scale campaign, we'll make every dollar count. Pricing is on a CPM (cost per thousand views) basis — you only pay for performance, not effort.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I get to keep the clips? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Yes. We provide a private folder containing all the best-quality, top-performing clips from your campaign. Use them however you like — ads, reposts, organic content, whatever works for you.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How quickly can we get started? <span class="faq-icon">+</span></div>
+      <div class="faq-a">New campaigns are typically live within a week — we use that time to build your style guide and brief clippers properly. Any future campaigns can go live within 24 hours.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What is the full process? <span class="faq-icon">+</span></div>
+      <div class="faq-a">We outline your goals, build a campaign structure, create the editing styles you want clippers to use, then give them access to your content. Every clip is tracked, every page monitored. Daily analytics throughout, and a full debrief at the end.</div>
+    </div>
+  </div>
+  <p style="font-size:14px;color:#AAA;margin-top:28px;">Still have questions? <a href="https://www.mgcpm.com/contact-4" style="color:#111;font-weight:500;">Contact us →</a></p>
+</section>
+
+<!-- CTA BOTTOM -->
+<div class="cta-bottom">
+  <h2>Ready to scale your reach?</h2>
+  <p>Apply below for a personalised campaign breakdown. No obligation.</p>
+  <a href="https://forms.gle/yv1mMJZ3KeQvJdNCA" target="_blank" class="btn-white">Launch a Campaign →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="logo-f">MGCPM</div>
+    <div class="footer-copy">© 2025 MGCPM. All rights reserved.</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://www.mgcpm.com/s-projects-basic">Case Studies</a>
+    <a href="https://www.instagram.com/mgcpm.07" target="_blank">Instagram</a>
+    <a href="https://www.youtube.com/@Mgcpm" target="_blank">YouTube</a>
+    <a href="https://www.mgcpm.com/contact-4">Contact</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
