@@ -199,14 +199,13 @@
     border-radius: 20px;
     overflow: hidden;
     transition: border-color 0.2s, transform 0.2s;
-    padding: 24px;
   }
 
   .result-card:hover { border-color: #CCC; transform: translateY(-2px); }
 
   .result-card-name {
     font-family: 'Playfair Display', serif;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 700;
     color: #111;
     margin-bottom: 4px;
@@ -216,14 +215,16 @@
     font-size: 13px;
     color: #999;
     font-weight: 500;
-    margin-bottom: 20px;
   }
 
   .result-card img {
     width: 100%;
     height: auto;
-    border-radius: 12px;
     display: block;
+  }
+
+  .result-card-body {
+    padding: 20px 24px;
   }
 
   .result-placeholder {
@@ -439,14 +440,18 @@
   <h2 class="section-h2">Real Clips = Real Results</h2>
   <div class="results-grid">
     <div class="result-card">
-      <div class="result-card-name">Show Nemoto</div>
-      <div class="result-card-stat">900k+ Followers</div>
       <img src="result1.png" alt="Show Nemoto clips">
+      <div class="result-card-body">
+        <div class="result-card-name">Show Nemoto</div>
+        <div class="result-card-stat">900k+ Followers</div>
+      </div>
     </div>
     <div class="result-card">
-      <div class="result-card-name">BillyTheGoat</div>
-      <div class="result-card-stat">50M+ Views Generated</div>
       <img src="result2.png" alt="BillyTheGoat clips">
+      <div class="result-card-body">
+        <div class="result-card-name">BillyTheGoat</div>
+        <div class="result-card-stat">50M+ Views Generated</div>
+      </div>
     </div>
   </div>
 </div>
