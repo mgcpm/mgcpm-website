@@ -202,7 +202,7 @@ body { -webkit-font-smoothing: antialiased; }
 /* ===== CLIENT SETTINGS — the only part to change per client ===== */
 const REPORT = {
   // Google Sheet → File → Share → Publish to web → choose the tab → CSV → paste link here
-  sheetCsv: "",
+  sheetCsv: "https://docs.google.com/spreadsheets/d/1a8je7W8PjyKhEdIqxswDxCcJ5cGsvjIxQErgMU1cPLQ/gviz/tq?tqx=out:csv&gid=325282488",
   // Used until sheetCsv is set (and if the sheet can't be reached)
   fallbackCsv: `post,date,views,likes,comments,shares,link
 1,2026-09-18,1393,,0,0,
@@ -430,9 +430,17 @@ dash.calc('per_post', {
 <script>
 (async function load() {
   const status = document.getElementById("mg-status");
+  const fixDate = (s) => {
+    s = String(s).trim().split(" ")[0];
+    if (!s.includes("/")) return s.slice(0, 10);
+    let [a, b, y] = s.split("/").map((x) => x.padStart(2, "0"));
+    if (Number(b) > 12) [a, b] = [b, a]; // handles US-style dates too
+    if (y.length === 2) y = "20" + y;
+    return `${y}-${b}-${a}`;
+  };
   const parse = (txt) => d3.csvParse(txt.trim()).filter((r) => r.date && r.views !== "")
     .map((r) => {
-      const o = { ...r, date: r.date.includes("/") ? r.date.split("/").reverse().join("-") : r.date };
+      const o = { ...r, date: fixDate(r.date) };
       for (const k of ["views", "likes", "comments", "shares"]) o[k] = String(o[k] ?? "").replace(/[,+\s]/g, "");
       return o;
     });
