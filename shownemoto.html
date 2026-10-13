@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Show Nemoto — IG Analytics | MGCPM</title>
+<meta property="og:title" content="Show Nemoto — IG Analytics">
+<meta property="og:description" content="Short form content report by MGCPM Content Distribution">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 1080'%3E%3Crect width='1080' height='1080' rx='200' fill='black'/%3E%3Cpath d='M905 205 L140 565 L445 680 L557 945 Z' fill='none' stroke='white' stroke-width='70' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+:root {
+  --cds-gap-xs: 4px; --cds-gap-sm: 8px; --cds-gap-md: 14px; --cds-gap-lg: 22px;
+  --cds-pad-xs: 4px; --cds-pad-sm: 8px; --cds-pad-lg: 20px;
+  --cds-font-size-caption: 12px; --cds-font-size-body: 15px; --cds-font-size-heading: 15px;
+  --cds-dur-slow: .3s; --color-bad: #ff5c5c;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #000; min-height: 100%; }
+body { -webkit-font-smoothing: antialiased; }
+#dash-root { min-height: 100vh; }
+#dash-root > .mg { min-height: 100vh; }
+.mg-status { text-align: center; font-size: 12px; color: rgba(255,255,255,.4); }
+
+#dash-root { --dash-gutter: 0; }
+.mg {
+  --mg-fg: #ffffff; --mg-muted: rgba(255,255,255,.62); --mg-faint: rgba(255,255,255,.4);
+  --mg-line: rgba(255,255,255,.28); --mg-grid: rgba(255,255,255,.08); --mg-accent: #ffffff; --mg-bar: rgba(255,255,255,.26);
+  --mg-glow: 0 0 22px rgba(255,255,255,.14), inset 0 0 18px rgba(255,255,255,.05);
+  --mg-font: "Poppins", "Montserrat", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--mg-font); color: var(--mg-fg); color-scheme: dark;
+  display: grid; gap: var(--cds-gap-lg); padding: clamp(20px, 4vw, 48px) clamp(16px, 4vw, 48px);
+  background:
+    radial-gradient(ellipse 60% 45% at 0% 22%, rgba(255,255,255,.07), transparent 70%),
+    radial-gradient(ellipse 60% 45% at 0% 82%, rgba(255,255,255,.06), transparent 70%),
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 60px 60px,
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 60px 60px,
+    linear-gradient(135deg, #0b0b0b, #000 55%, #0a0a0a);
+  position: relative; overflow: hidden; min-height: 100%;
+}
+.mg::before, .mg::after { content: ""; position: absolute; left: -10%; width: 45%; height: 2px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent); filter: blur(.6px); transform: rotate(-38deg); }
+.mg::before { top: 16%; } .mg::after { top: 78%; opacity: .8; }
+.mg { grid-template-columns: minmax(0, 1fr); }
+.mg > * { position: relative; z-index: 1; max-width: 1100px; width: 100%; min-width: 0; margin-inline: auto; }
+.mg-grid > *, .mg-tiles > * { min-width: 0; }
+.mg-head { text-align: center; }
+.mg-mark { display: flex; align-items: center; justify-content: center; gap: clamp(10px, 2vw, 20px); }
+.mg-logo { width: clamp(34px, 6vw, 56px); height: auto; padding: 8px; border: 3px solid var(--mg-fg); border-radius: 50%; color: var(--mg-fg); box-sizing: content-box; filter: drop-shadow(0 0 6px rgba(255,255,255,.35)); }
+.mg-word { height: clamp(1.9rem, 6vw, 3.4rem); width: auto; color: var(--mg-fg); filter: drop-shadow(0 0 10px rgba(255,255,255,.35)); }
+.mg-brand { font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--mg-faint); font-size: clamp(.85rem, 2vw, 1.1rem); margin-top: 6px; }
+.mg-rule { height: 2px; max-width: 520px; margin: 14px auto; background: linear-gradient(90deg, transparent, var(--mg-line), transparent); }
+.mg-title { font-family: var(--mg-font); font-weight: 700; font-size: clamp(1.5rem, 4.5vw, 2.3rem); margin: 0; }
+.mg-kicker { text-transform: uppercase; letter-spacing: .08em; font-size: var(--cds-font-size-caption); color: var(--mg-faint); margin-top: 2px; }
+.mg-take { color: var(--mg-muted); margin: 14px 0 0; font-size: var(--cds-font-size-body); }
+.mg-take b { color: var(--mg-fg); font-weight: 700; }
+.mg-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr)); gap: var(--cds-gap-md); }
+.mg-tile, .mg-card { background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03)); border: 1.5px solid var(--mg-line); border-radius: 16px; padding: var(--cds-pad-lg); box-shadow: var(--mg-glow); }
+.mg-tile { text-align: center; }
+.mg-label { font-size: var(--cds-font-size-caption); color: var(--mg-muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+.mg-num { font-weight: 800; font-size: clamp(1.6rem, 3.2vw, 2.2rem); white-space: nowrap; font-variant-numeric: tabular-nums; margin: 6px 0; text-shadow: 0 0 14px rgba(255,255,255,.3); }
+.mg-sub { font-size: var(--cds-font-size-caption); color: var(--mg-faint); }
+.mg-best { text-align: center; }
+.mg-best-row { display: flex; align-items: baseline; justify-content: center; gap: var(--cds-gap-md); flex-wrap: wrap; margin-top: 6px; }
+.mg-best-num { font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.4rem); font-variant-numeric: tabular-nums; text-shadow: 0 0 14px rgba(255,255,255,.3); }
+.mg-best-meta { color: var(--mg-muted); }
+.mg a { color: var(--mg-fg); font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--mg-line); }
+.mg-best-link { margin-left: var(--cds-gap-sm); }
+.mg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--cds-gap-md); }
+.mg-h { font-family: var(--mg-font); font-size: var(--cds-font-size-heading); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin: 0; }
+.mg-note { font-size: var(--cds-font-size-caption); color: var(--mg-faint); margin: 4px 0 var(--cds-gap-md); }
+.mg-chart { position: relative; min-height: 240px; }
+.mg-tablewrap { overflow-x: auto; }
+.mg-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; font-variant-numeric: tabular-nums; font-size: var(--cds-font-size-body); }
+.mg-table th { text-align: left; font-weight: 600; font-size: var(--cds-font-size-caption); color: var(--mg-faint); text-transform: uppercase; letter-spacing: .05em; padding: 4px 12px; white-space: nowrap; }
+.mg-table td { padding: 10px 12px; white-space: nowrap; background: rgba(255,255,255,.05); border-top: 1px solid var(--mg-line); border-bottom: 1px solid var(--mg-line); }
+.mg-table td:first-child { border-left: 1px solid var(--mg-line); border-radius: 10px 0 0 10px; font-weight: 700; }
+.mg-table td:last-child { border-right: 1px solid var(--mg-line); border-radius: 0 10px 10px 0; }
+.mg-table .num { text-align: right; }
+.mg-table tr.is-best td { font-weight: 700; background: rgba(255,255,255,.12); box-shadow: 0 0 14px rgba(255,255,255,.08); }
+.mg-muted { color: var(--mg-faint); }
+.mg-foot { font-size: var(--cds-font-size-caption); color: var(--mg-faint); margin: var(--cds-gap-md) 0 0; text-align: center; text-transform: uppercase; letter-spacing: .04em; }
+.mg-footer { display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--mg-faint); font-size: var(--cds-font-size-caption); padding-top: var(--cds-gap-sm); }
+.mg-footer b { color: var(--mg-fg); }
+.mg-logo-sm { width: 14px; padding: 5px; border-width: 1.5px; filter: none; }
+.mg-tip { position: absolute; pointer-events: none; background: #111; color: var(--mg-fg); border: 1px solid var(--mg-line); border-radius: 10px; box-shadow: 0 0 16px rgba(255,255,255,.12); padding: 6px 10px; font-size: var(--cds-font-size-caption); white-space: nowrap; display: none; z-index: 2; }
+.mg-tip .k { color: var(--mg-muted); }
+.mg-fail { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 240px; color: var(--mg-muted); font-size: var(--cds-font-size-caption); }
+.mg-fail::before { content: ""; width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+.mg .dash-skeleton { opacity: .4; }
+[data-dash-source-state=empty] { color: transparent; }
+[data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+
+.mg-soon { display: none; text-align: center; padding: 40px 20px; }
+.mg-soon-title { font-weight: 800; font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 8px 0; text-shadow: 0 0 14px rgba(255,255,255,.3); }
+.mg-soon-text { color: var(--mg-muted); margin: 0 auto; max-width: 460px; }
+.mg.is-empty .mg-soon { display: block; }
+.mg.is-empty .mg-take, .mg.is-empty .mg-tiles, .mg.is-empty .mg-best, .mg.is-empty .mg-grid, .mg.is-empty #breakdown { display: none; }
+.mg-all-note { display: none; }
+.mg.no-hidden .mg-hidden-note { display: none; }
+.mg.no-hidden .mg-all-note { display: block; }
+</style>
+</head>
+<body>
+<div id="dash-root">
+<div class="mg">
+  <header class="mg-head">
+    <div class="mg-mark"><svg class="mg-logo" viewBox="0 0 1080 1080" aria-hidden="true"><path d="M905 205 L140 565 L445 680 L557 945 Z" fill="none" stroke="currentColor" stroke-width="70" stroke-linejoin="round"/></svg><svg class="mg-word" viewBox="0 331 4101 729" role="img" aria-label="MGCPM"><path fill="currentColor" d="M879 345V1050H683V661L550 1050H386L252 658V1050H56V345H293L470 803L643 345Z M1461 577Q1444 549 1414.5 534.0Q1385 519 1345 519Q1271 519 1228.5 567.0Q1186 615 1186 696Q1186 787 1231.5 834.5Q1277 882 1364 882Q1467 882 1511 789H1314V648H1680V838Q1657 894 1612.5 943.0Q1568 992 1500.0 1023.5Q1432 1055 1345 1055Q1239 1055 1157.5 1009.5Q1076 964 1031.5 882.5Q987 801 987 696Q987 592 1031.5 510.5Q1076 429 1157.0 383.5Q1238 338 1344 338Q1477 338 1564.0 402.0Q1651 466 1672 577Z M2115 338Q2247 338 2337.0 408.5Q2427 479 2453 600H2242Q2223 560 2189.5 539.0Q2156 518 2112 518Q2044 518 2003.5 566.5Q1963 615 1963 696Q1963 778 2003.5 826.5Q2044 875 2112 875Q2156 875 2189.5 854.0Q2223 833 2242 793H2453Q2427 914 2337.0 984.5Q2247 1055 2115 1055Q2011 1055 1931.0 1009.5Q1851 964 1807.5 882.5Q1764 801 1764 696Q1764 592 1807.5 510.5Q1851 429 1931.0 383.5Q2011 338 2115 338Z M2859 812H2762V1050H2566V345H2859Q2944 345 3003.5 375.0Q3063 405 3093.0 458.0Q3123 511 3123 580Q3123 644 3093.5 696.5Q3064 749 3004.5 780.5Q2945 812 2859 812ZM2923 580Q2923 503 2840 503H2762V656H2840Q2923 656 2923 580Z M4045 345V1050H3849V661L3716 1050H3552L3418 658V1050H3222V345H3459L3636 803L3809 345Z"/></svg><svg class="mg-logo" viewBox="0 0 1080 1080" aria-hidden="true"><path d="M905 205 L140 565 L445 680 L557 945 Z" fill="none" stroke="currentColor" stroke-width="70" stroke-linejoin="round"/></svg></div>
+    <div class="mg-brand">Content distribution</div>
+    <div class="mg-rule"></div>
+    <h1 class="mg-title">Show Nemoto — IG Analytics</h1>
+    <div class="mg-kicker">Short form content report</div>
+    <p class="mg-take">
+      <span data-source="totals" data-field="clips" data-row="0" class="dash-skeleton">—</span> clips posted between
+      <span data-source="totals" data-field="first_date" data-row="0" class="dash-skeleton">—</span> and
+      <span data-source="totals" data-field="last_date" data-row="0" class="dash-skeleton">—</span>, averaging
+      <b data-source="totals" data-field="avg_views" data-row="0" class="dash-skeleton">—</b> views each.
+    </p>
+  </header>
+
+  <section class="mg-card mg-soon" id="coming-soon">
+    <div class="mg-label">Campaign status</div>
+    <div class="mg-soon-title">Campaign launching</div>
+    <p class="mg-soon-text">First clips are being prepared. This page updates automatically as each clip goes live — no need to refresh links.</p>
+  </section>
+
+  <section class="mg-tiles" id="headline">
+    <div class="mg-tile mg-tile-main">
+      <div class="mg-label">Views generated</div>
+      <div class="mg-num" data-source="totals" data-field="views" data-row="0">—</div>
+      <div class="mg-sub">All posts, public view counts</div>
+    </div>
+    <div class="mg-tile">
+      <div class="mg-label">Avg views per clip</div>
+      <div class="mg-num" data-source="totals" data-field="avg_views" data-row="0">—</div>
+      <div class="mg-sub">Total views ÷ clips</div>
+    </div>
+    <div class="mg-tile">
+      <div class="mg-label">Clips posted</div>
+      <div class="mg-num" data-source="totals" data-field="clips" data-row="0">—</div>
+      <div class="mg-sub">This campaign</div>
+    </div>
+    <div class="mg-tile">
+      <div class="mg-label">Likes</div>
+      <div class="mg-num" data-source="totals" data-field="likes" data-row="0">—</div>
+      <div class="mg-sub mg-hidden-note"><span data-source="totals" data-field="likes_hidden" data-row="0">—</span> posts have likes hidden</div><div class="mg-sub mg-all-note">All posts</div>
+    </div>
+    <div class="mg-tile">
+      <div class="mg-label">Comments</div>
+      <div class="mg-num" data-source="totals" data-field="comments" data-row="0">—</div>
+      <div class="mg-sub">All posts</div>
+    </div>
+    <div class="mg-tile">
+      <div class="mg-label">Shares</div>
+      <div class="mg-num" data-source="totals" data-field="shares" data-row="0">—</div>
+      <div class="mg-sub">All posts</div>
+    </div>
+  </section>
+
+  <section class="mg-card mg-best" id="best-clip">
+    <div class="mg-label">Best performing clip</div>
+    <div class="mg-best-row">
+      <div class="mg-best-num" data-source="totals" data-field="best_views" data-row="0">—</div>
+      <div class="mg-best-meta">views · post #<span data-source="totals" data-field="best_post" data-row="0">—</span>,
+        <span data-source="totals" data-field="best_date" data-row="0">—</span>
+        <a class="mg-best-link" target="_blank" rel="noopener"></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mg-grid">
+    <div class="mg-card" id="views-per-post">
+      <h2 class="mg-h">Views per post</h2>
+      <p class="mg-note">Best clip highlighted.</p>
+      <div class="mg-chart" data-source="posts"></div>
+    </div>
+    <div class="mg-card" id="cumulative">
+      <h2 class="mg-h">Total views over time</h2>
+      <p class="mg-note">Running total as each clip goes live.</p>
+      <div class="mg-chart" data-source="per_post"></div>
+    </div>
+  </section>
+
+  <section class="mg-card" id="breakdown">
+    <h2 class="mg-h">Post breakdown</h2>
+    <p class="mg-note">Engagement rate = (likes + comments + shares) ÷ views, shown only where likes are public.</p>
+    <div class="mg-tablewrap">
+      <table class="mg-table" data-source="posts" data-row-key="post">
+        <thead><tr>
+          <th data-field="post">#</th>
+          <th data-field="date">Date</th>
+          <th data-field="views" class="num">Views</th>
+          <th data-field="likes" class="num">Likes</th>
+          <th data-field="comments" class="num">Comments</th>
+          <th data-field="shares" class="num">Shares</th>
+          <th data-source="per_post" data-field="eng_rate" class="num">Eng. rate</th>
+          <th data-field="link">Link</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="mg-foot mg-hidden-note">Some likes aren't shown because of the account owner's privacy settings.</p>
+  </section>
+
+  <p class="mg-status" id="mg-status"></p>
+  <footer class="mg-footer"><svg class="mg-logo mg-logo-sm" viewBox="0 0 1080 1080" aria-hidden="true"><path d="M905 205 L140 565 L445 680 L557 945 Z" fill="none" stroke="currentColor" stroke-width="70" stroke-linejoin="round"/></svg><span>Powered by <b>MGCPM</b> · Content distribution · mgcpm.com</span></footer>
+</div>
+
+
+</div>
+
+<script>
+/* ===== CLIENT SETTINGS — the only part to change per client ===== */
+const REPORT = {
+  // Google Sheet → File → Share → Publish to web → choose the tab → CSV → paste link here
+  sheetCsv: "",
+  // Used until sheetCsv is set (and if the sheet can't be reached)
+  fallbackCsv: `post,date,views,likes,comments,shares,link
+1,14/06/2026,2600000,159000,130,31100,
+2,16/06/2026,196000,9907,53,1307,
+3,09/07/2026,80900,4438,19,629,
+4,14/07/2026,127000,7537,81,1254,
+5,29/07/2026,23000,627,4,46,
+6,29/08/2026,21600,982,13,62,
+7,03/09/2026,14300,492,4,23,
+8,11/09/2026,19800,478,3,10,`
+};
+/* ================================================================= */
+
+// Tiny runtime so the report code runs on any website
+(function () {
+  const store = {}, calcs = [], fns = [];
+  window.dash = {
+    colors: ["#ffffff"],
+    calc(id, o) { calcs.push([id, o]); },
+    onData(fn) { fns.push(fn); fn(); },
+    data(id) { return store[id] || { status: "loading", data: [] }; },
+    _set(rows) {
+      store.posts = { status: "ok", data: rows };
+      for (const [id, o] of calcs) store[id] = { status: "ok", data: o.fn(...o.inputs.map((i) => store[i].data)) };
+      fns.forEach((f) => f());
+    },
+    _fail() { store.posts = store.totals = store.per_post = { status: "error", data: [] }; fns.forEach((f) => f()); }
+  };
+  let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(() => fns.forEach((f) => f()), 150); });
+})();
+</script>
+<script>
+dash.calc('totals', {
+  inputs: ['posts'],
+  title: 'Campaign totals',
+  description: 'Totals and averages across every post; likes only count posts where likes are public.',
+  fn: (posts) => {
+    const n = (v) => (v === '' || v == null ? null : Number(v));
+    if (!posts.length) return [];
+    let views = 0, likes = 0, comments = 0, shares = 0, hidden = 0, best = posts[0];
+    for (const p of posts) {
+      views += n(p.views) || 0;
+      comments += n(p.comments) || 0;
+      shares += n(p.shares) || 0;
+      if (n(p.likes) == null) hidden++; else likes += n(p.likes);
+      if ((n(p.views) || 0) > (n(best.views) || 0)) best = p;
+    }
+    const dates = posts.map((p) => p.date).sort();
+    return [{
+      clips: posts.length, views, avg_views: Math.round(views / posts.length),
+      likes, likes_hidden: hidden, comments, shares,
+      best_post: best.post, best_views: n(best.views), best_date: best.date, best_link: best.link || '',
+      first_date: dates[0], last_date: dates[dates.length - 1]
+    }];
+  }
+});
+
+dash.calc('per_post', {
+  inputs: ['posts'],
+  title: 'Running total & engagement',
+  description: 'Running total of views by post date, and each post’s engagement rate where likes are public.',
+  fn: (posts) => {
+    const n = (v) => (v === '' || v == null ? null : Number(v));
+    const sorted = posts.slice().sort((a, b) => (a.date < b.date ? -1 : 1));
+    let run = 0;
+    return sorted.map((p) => {
+      run += n(p.views) || 0;
+      const likes = n(p.likes), views = n(p.views);
+      return {
+        post: p.post, date: p.date, cumulative_views: run,
+        eng_rate: likes == null || !views ? null : (likes + (n(p.comments) || 0) + (n(p.shares) || 0)) / views
+      };
+    });
+  }
+});
+</script>
+
+<script>
+(() => {
+  const root = document.querySelector('.mg');
+  const fmt = d3.format(',');
+  const pct = d3.format('.1%');
+  const compact = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 });
+  const dFmt = d3.utcFormat('%-d %b');
+  const dLong = d3.utcFormat('%-d %b %Y');
+  const big = (v) => (Number(v) >= 100000 ? new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: Number(v) >= 1e6 ? 2 : 1 }).format(v) : fmt(v));
+  const n = (v) => (v === '' || v == null ? null : Number(v));
+  const day = (s) => new Date(String(s).slice(0, 10) + 'T00:00:00Z');
+  const fields = {
+    views: big, avg_views: big, clips: fmt, likes: big, likes_hidden: fmt, comments: big, shares: big,
+    best_views: big, best_post: (v) => v, best_date: (v) => dLong(day(v)),
+    first_date: (v) => dFmt(day(v)), last_date: (v) => dLong(day(v))
+  };
+
+  function fail(el) { el.innerHTML = ''; const d = document.createElement('div'); d.className = 'mg-fail'; d.textContent = 'Failed to load'; el.appendChild(d); }
+
+  function tipFor(box) {
+    let t = box.querySelector('.mg-tip');
+    if (!t) { t = document.createElement('div'); t.className = 'mg-tip'; box.appendChild(t); }
+    return t;
+  }
+  function showTip(box, t, x, y, k, v) {
+    t.innerHTML = '';
+    const a = document.createElement('div'); a.className = 'k'; a.textContent = k;
+    const b = document.createElement('div'); b.textContent = v;
+    t.append(a, b); t.style.display = 'block';
+    const w = t.offsetWidth, bw = box.clientWidth;
+    t.style.left = Math.max(0, Math.min(bw - w, x - w / 2)) + 'px';
+    t.style.top = Math.max(0, y - t.offsetHeight - 8) + 'px';
+  }
+
+  function barChart(box, rows, bestPost) {
+    box.innerHTML = '';
+    const w = box.clientWidth || 600, h = 240, m = { t: 22, r: 8, b: 40, l: 40 };
+    const x = d3.scaleBand(rows.map((r) => r.post), [m.l, w - m.r]).padding(0.3);
+    const y = d3.scaleLinear([0, d3.max(rows, (r) => n(r.views)) || 1], [h - m.b, m.t]).nice();
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${w} ${h}`).attr('height', h);
+    const g = svg.append('g').attr('transform', `translate(${m.l},0)`)
+      .call(d3.axisLeft(y).ticks(4).tickSize(-(w - m.l - m.r)).tickFormat((v) => compact.format(v)))
+      .attr('font-size', null).attr('font-family', null);
+    g.select('.domain').remove();
+    g.selectAll('.tick line').attr('stroke', 'var(--mg-grid)');
+    g.selectAll('.tick text').attr('fill', 'var(--mg-muted)').style('font-size', 'var(--cds-font-size-caption)');
+    const bw = Math.min(x.bandwidth(), 32);
+    const tip = tipFor(box);
+    svg.append('g').selectAll('rect').data(rows).join('rect')
+      .attr('x', (r) => x(r.post) + (x.bandwidth() - bw) / 2).attr('width', bw)
+      .attr('y', (r) => y(n(r.views))).attr('height', (r) => y(0) - y(n(r.views))).attr('rx', 4)
+      .style('fill', (r) => (String(r.post) === String(bestPost) ? 'var(--mg-accent)' : 'var(--mg-bar)'))
+      .on('mousemove', (e, r) => { const [px, py] = d3.pointer(e, box); showTip(box, tip, px, py, `Post #${r.post} · ${dFmt(day(r.date))}`, `${fmt(n(r.views))} views`); })
+      .on('mouseleave', () => { tip.style.display = 'none'; });
+    svg.append('g').selectAll('text').data(rows).join('text')
+      .attr('x', (r) => x(r.post) + x.bandwidth() / 2).attr('y', (r) => y(n(r.views)) - 6)
+      .attr('text-anchor', 'middle').attr('fill', 'var(--mg-fg)').style('font-size', 'var(--cds-font-size-caption)')
+      .text((r) => compact.format(n(r.views)));
+    const lab = svg.append('g').selectAll('g').data(rows).join('g')
+      .attr('transform', (r) => `translate(${x(r.post) + x.bandwidth() / 2},${h - m.b + 16})`);
+    lab.append('text').attr('text-anchor', 'middle').attr('fill', 'var(--mg-fg)').style('font-size', 'var(--cds-font-size-caption)').text((r) => `#${r.post}`);
+    if (x.bandwidth() > 34) lab.append('text').attr('y', 14).attr('text-anchor', 'middle').attr('fill', 'var(--mg-muted)').style('font-size', 'var(--cds-font-size-caption)').text((r) => dFmt(day(r.date)));
+  }
+
+  function lineChart(box, rows) {
+    box.innerHTML = '';
+    const w = box.clientWidth || 600, h = 240, m = { t: 22, r: 16, b: 32, l: 40 };
+    const pts = rows.map((r) => ({ d: day(r.date), v: r.cumulative_views, post: r.post }));
+    const x = d3.scaleUtc(d3.extent(pts, (p) => p.d), [m.l, w - m.r]);
+    const y = d3.scaleLinear([0, d3.max(pts, (p) => p.v) || 1], [h - m.b, m.t]).nice();
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${w} ${h}`).attr('height', h);
+    const gy = svg.append('g').attr('transform', `translate(${m.l},0)`)
+      .call(d3.axisLeft(y).ticks(4).tickSize(-(w - m.l - m.r)).tickFormat((v) => compact.format(v)))
+      .attr('font-size', null).attr('font-family', null);
+    gy.select('.domain').remove();
+    gy.selectAll('.tick line').attr('stroke', 'var(--mg-grid)');
+    gy.selectAll('.tick text').attr('fill', 'var(--mg-muted)').style('font-size', 'var(--cds-font-size-caption)');
+    const gx = svg.append('g').attr('transform', `translate(0,${h - m.b})`)
+      .call(d3.axisBottom(x).ticks(Math.max(2, Math.floor(w / 110))).tickFormat(dFmt).tickSizeOuter(0))
+      .attr('font-size', null).attr('font-family', null);
+    gx.select('.domain').attr('stroke', 'var(--mg-line)');
+    gx.selectAll('.tick line').remove();
+    gx.selectAll('.tick text').attr('fill', 'var(--mg-muted)').style('font-size', 'var(--cds-font-size-caption)');
+    const id = 'mgfade';
+    const grad = svg.append('defs').append('linearGradient').attr('id', id).attr('x1', 0).attr('x2', 0).attr('y1', 0).attr('y2', 1);
+    [[0, .26], [.25, .16], [.5, .08], [.75, .03], [1, 0]].forEach(([o, a]) => grad.append('stop').attr('offset', o).attr('style', `stop-color:#ffffff;stop-opacity:${a}`));
+    svg.append('path').datum(pts).attr('fill', `url(#${id})`).attr('d', d3.area().x((p) => x(p.d)).y0(y(0)).y1((p) => y(p.v)));
+    svg.append('path').datum(pts).attr('fill', 'none').style('stroke', 'var(--mg-accent)').attr('stroke-width', 2)
+      .attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round').attr('d', d3.line().x((p) => x(p.d)).y((p) => y(p.v)));
+    const tip = tipFor(box);
+    svg.append('g').selectAll('circle').data(pts).join('circle')
+      .attr('cx', (p) => x(p.d)).attr('cy', (p) => y(p.v)).attr('r', 4).style('fill', 'var(--mg-accent)')
+      .on('mousemove', (e, p) => { const [px, py] = d3.pointer(e, box); showTip(box, tip, px, py, `After post #${p.post} · ${dFmt(p.d)}`, `${fmt(p.v)} total views`); })
+      .on('mouseleave', () => { tip.style.display = 'none'; });
+  }
+
+  dash.onData(() => {
+    const posts = dash.data('posts'), totals = dash.data('totals'), per = dash.data('per_post');
+
+    // Headline numbers
+    root.querySelectorAll('[data-source="totals"]').forEach((el) => {
+      if (totals.status !== 'ok' || !totals.data.length) { el.textContent = '—'; return; }
+      el.classList.remove('dash-skeleton');
+      const f = el.getAttribute('data-field');
+      const v = totals.data[0][f];
+      el.textContent = v == null || v === '' ? '—' : (fields[f] || String)(v);
+    });
+    root.classList.toggle('no-hidden', totals.status === 'ok' && totals.data.length > 0 && Number(totals.data[0].likes_hidden) === 0);
+    const link = root.querySelector('.mg-best-link');
+    const bl = totals.status === 'ok' && totals.data.length ? totals.data[0].best_link : '';
+    if (bl) { link.href = bl; link.textContent = 'Watch ↗'; link.style.display = ''; } else { link.style.display = 'none'; }
+
+    // Charts
+    const barBox = root.querySelector('#views-per-post .mg-chart');
+    const lineBox = root.querySelector('#cumulative .mg-chart');
+    if (posts.status === 'ok' && posts.data.length) {
+      const rows = posts.data.slice().sort((a, b) => (a.date < b.date ? -1 : 1));
+      barChart(barBox, rows, totals.status === 'ok' && totals.data.length ? totals.data[0].best_post : null);
+    } else if (posts.status === 'error') fail(barBox); else barBox.innerHTML = '';
+    if (per.status === 'ok' && per.data.length) lineChart(lineBox, per.data);
+    else if (per.status === 'error') fail(lineBox); else lineBox.innerHTML = '';
+
+    // Table
+    const tbody = root.querySelector('.mg-table tbody');
+    tbody.innerHTML = '';
+    if (posts.status !== 'ok') return;
+    const eng = new Map((per.status === 'ok' ? per.data : []).map((r) => [String(r.post), r.eng_rate]));
+    const best = totals.status === 'ok' && totals.data.length ? String(totals.data[0].best_post) : null;
+    const rows = posts.data.slice().sort((a, b) => (a.date < b.date ? -1 : 1));
+    for (const r of rows) {
+      const tr = document.createElement('tr');
+      tr.dataset.key = r.post;
+      if (String(r.post) === best) tr.className = 'is-best';
+      const cell = (txt, cls) => { const td = document.createElement('td'); td.textContent = txt; if (cls) td.className = cls; tr.appendChild(td); return td; };
+      cell(r.post);
+      cell(dLong(day(r.date)));
+      cell(fmt(n(r.views)), 'num');
+      n(r.likes) == null ? cell('Hidden', 'num mg-muted') : cell(fmt(n(r.likes)), 'num');
+      cell(fmt(n(r.comments) || 0), 'num');
+      cell(fmt(n(r.shares) || 0), 'num');
+      const e = eng.get(String(r.post));
+      e == null ? cell('—', 'num mg-muted') : cell(pct(e), 'num');
+      const td = cell('');
+      if (r.link) { const a = document.createElement('a'); a.href = r.link; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Watch ↗'; td.appendChild(a); }
+      else { td.textContent = '—'; td.className = 'mg-muted'; }
+      tbody.appendChild(tr);
+    }
+  });
+})();
+</script>
+
+<script>
+(async function load() {
+  const status = document.getElementById("mg-status");
+  const fixDate = (s) => {
+    s = String(s).trim().split(" ")[0];
+    if (!s.includes("/")) return s.slice(0, 10);
+    let [a, b, y] = s.split("/").map((x) => x.padStart(2, "0"));
+    if (Number(b) > 12) [a, b] = [b, a]; // handles US-style dates too
+    if (y.length === 2) y = "20" + y;
+    return `${y}-${b}-${a}`;
+  };
+  const parse = (txt) => d3.csvParse(txt.trim()).filter((r) => r.date && r.views !== "")
+    .map((r) => {
+      const o = { ...r, date: fixDate(r.date) };
+      for (const k of ["views", "likes", "comments", "shares"]) {
+        let v = String(o[k] ?? "").replace(/[,+\s]/g, "").toLowerCase();
+        const mult = v.endsWith("m") ? 1e6 : v.endsWith("k") ? 1e3 : 1;
+        if (mult > 1) v = String(Math.round(parseFloat(v) * mult));
+        o[k] = v;
+      }
+      return o;
+    });
+  try {
+    if (!REPORT.sheetCsv) throw 0;
+    const res = await fetch(REPORT.sheetCsv + (REPORT.sheetCsv.includes("?") ? "&" : "?") + "t=" + Date.now());
+    if (!res.ok) throw 0;
+    const rows = parse(await res.text());
+    document.querySelector(".mg").classList.toggle("is-empty", rows.length === 0);
+    dash._set(rows);
+    status.textContent = "Live data · updated " + new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" });
+  } catch (e) {
+    const rows = parse(REPORT.fallbackCsv);
+    document.querySelector(".mg").classList.toggle("is-empty", rows.length === 0);
+    dash._set(rows);
+  }
+})();
+</script>
+</body>
+</html>
