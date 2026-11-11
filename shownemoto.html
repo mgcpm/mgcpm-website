@@ -102,6 +102,14 @@ body { -webkit-font-smoothing: antialiased; }
 .mg-all-note { display: none; }
 .mg.no-hidden .mg-hidden-note { display: none; }
 .mg.no-hidden .mg-all-note { display: block; }
+.mg-filter { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.mg-filter[hidden] { display: none; }
+.mg-filter button { font: inherit; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--mg-muted); background: rgba(255,255,255,.04); border: 1.5px solid var(--mg-line); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.mg-filter button.on { color: #000; background: #fff; border-color: #fff; box-shadow: 0 0 16px rgba(255,255,255,.35); }
+.mg-badge { display: inline-block; margin-left: 10px; padding: 3px 10px; background: #fff; color: #000; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: .06em; vertical-align: middle; box-shadow: 0 0 12px rgba(255,255,255,.45); }
+.mg-table tr.is-trial td { border-top: 1.5px dashed rgba(255,255,255,.7); border-bottom: 1.5px dashed rgba(255,255,255,.7); background: rgba(255,255,255,.08); }
+.mg-table tr.is-trial td:first-child { border-left: 1.5px dashed rgba(255,255,255,.7); }
+.mg-table tr.is-trial td:last-child { border-right: 1.5px dashed rgba(255,255,255,.7); }
 </style>
 </head>
 <body>
@@ -126,6 +134,12 @@ body { -webkit-font-smoothing: antialiased; }
     <div class="mg-soon-title">Campaign launching</div>
     <p class="mg-soon-text">First clips are being prepared. This page updates automatically as each clip goes live — no need to refresh links.</p>
   </section>
+
+  <div class="mg-filter" id="post-filter" hidden>
+    <button type="button" data-f="all" class="on">All posts</button>
+    <button type="button" data-f="main">Main reels</button>
+    <button type="button" data-f="trial">Trial reels</button>
+  </div>
 
   <section class="mg-tiles" id="headline">
     <div class="mg-tile mg-tile-main">
@@ -174,7 +188,7 @@ body { -webkit-font-smoothing: antialiased; }
   <section class="mg-grid">
     <div class="mg-card" id="views-per-post">
       <h2 class="mg-h">Views per post</h2>
-      <p class="mg-note">Best clip highlighted.</p>
+      <p class="mg-note">Best clip highlighted · dashed outline = trial reel.</p>
       <div class="mg-chart" data-source="posts"></div>
     </div>
     <div class="mg-card" id="cumulative">
@@ -255,7 +269,7 @@ dash.calc('totals', {
   description: 'Totals and averages across every post; likes only count posts where likes are public.',
   fn: (posts) => {
     const n = (v) => (v === '' || v == null ? null : Number(v));
-    if (!posts.length) return [];
+    if (!posts.length) return [{ clips: 0, views: 0, avg_views: 0, likes: 0, likes_hidden: 0, comments: 0, shares: 0, best_post: '', best_views: '', best_date: '', best_link: '', first_date: '', last_date: '' }];
     let views = 0, likes = 0, comments = 0, shares = 0, hidden = 0, best = posts[0];
     for (const p of posts) {
       views += n(p.views) || 0;
@@ -280,7 +294,7 @@ dash.calc('per_post', {
   description: 'Running total of views by post date, and each post’s engagement rate where likes are public.',
   fn: (posts) => {
     const n = (v) => (v === '' || v == null ? null : Number(v));
-    const sorted = posts.slice().sort((a, b) => (a.date < b.date ? -1 : 1));
+    const sorted = posts.slice().sort((a, b) => (a.date === b.date ? Number(a.post) - Number(b.post) : a.date < b.date ? -1 : 1));
     let run = 0;
     return sorted.map((p) => {
       run += n(p.views) || 0;
@@ -345,14 +359,16 @@ dash.calc('per_post', {
     svg.append('g').selectAll('rect').data(rows).join('rect')
       .attr('x', (r) => x(r.post) + (x.bandwidth() - bw) / 2).attr('width', bw)
       .attr('y', (r) => y(n(r.views))).attr('height', (r) => y(0) - y(n(r.views))).attr('rx', 4)
-      .style('fill', (r) => (String(r.post) === String(bestPost) ? 'var(--mg-accent)' : 'var(--mg-bar)'))
-      .on('mousemove', (e, r) => { const [px, py] = d3.pointer(e, box); showTip(box, tip, px, py, `Post #${r.post} · ${dFmt(day(r.date))}`, `${fmt(n(r.views))} views`); })
+      .style('fill', (r) => (/trial/i.test(r.type || '') ? 'transparent' : String(r.post) === String(bestPost) ? 'var(--mg-accent)' : 'var(--mg-bar)'))
+      .style('stroke', (r) => (/trial/i.test(r.type || '') ? '#fff' : 'none')).style('stroke-dasharray', '3 2').style('stroke-width', 1.5)
+      .on('mousemove', (e, r) => { const [px, py] = d3.pointer(e, box); showTip(box, tip, px, py, `Post #${r.post}${/trial/i.test(r.type || '') ? ' (trial reel)' : ''} · ${dFmt(day(r.date))}`, `${fmt(n(r.views))} views`); })
       .on('mouseleave', () => { tip.style.display = 'none'; });
-    svg.append('g').selectAll('text').data(rows).join('text')
+    const every = Math.max(1, Math.ceil(26 / x.step()));
+    if (x.step() >= 30) svg.append('g').selectAll('text').data(rows).join('text')
       .attr('x', (r) => x(r.post) + x.bandwidth() / 2).attr('y', (r) => y(n(r.views)) - 6)
       .attr('text-anchor', 'middle').attr('fill', 'var(--mg-fg)').style('font-size', 'var(--cds-font-size-caption)')
       .text((r) => compact.format(n(r.views)));
-    const lab = svg.append('g').selectAll('g').data(rows).join('g')
+    const lab = svg.append('g').selectAll('g').data(rows.filter((r, i) => i % every === 0)).join('g')
       .attr('transform', (r) => `translate(${x(r.post) + x.bandwidth() / 2},${h - m.b + 16})`);
     lab.append('text').attr('text-anchor', 'middle').attr('fill', 'var(--mg-fg)').style('font-size', 'var(--cds-font-size-caption)').text((r) => `#${r.post}`);
     if (x.bandwidth() > 34) lab.append('text').attr('y', 14).attr('text-anchor', 'middle').attr('fill', 'var(--mg-muted)').style('font-size', 'var(--cds-font-size-caption)').text((r) => dFmt(day(r.date)));
@@ -401,6 +417,8 @@ dash.calc('per_post', {
       const v = totals.data[0][f];
       el.textContent = v == null || v === '' ? '—' : (fields[f] || String)(v);
     });
+    root.querySelector('.mg-best-meta').style.display = totals.status === 'ok' && totals.data.length && Number(totals.data[0].clips) === 0 ? 'none' : '';
+    root.querySelector('.mg-take').style.display = totals.status === 'ok' && totals.data.length && Number(totals.data[0].clips) === 0 ? 'none' : '';
     root.classList.toggle('no-hidden', totals.status === 'ok' && totals.data.length > 0 && Number(totals.data[0].likes_hidden) === 0);
     const link = root.querySelector('.mg-best-link');
     const bl = totals.status === 'ok' && totals.data.length ? totals.data[0].best_link : '';
@@ -410,7 +428,7 @@ dash.calc('per_post', {
     const barBox = root.querySelector('#views-per-post .mg-chart');
     const lineBox = root.querySelector('#cumulative .mg-chart');
     if (posts.status === 'ok' && posts.data.length) {
-      const rows = posts.data.slice().sort((a, b) => (a.date < b.date ? -1 : 1));
+      const rows = posts.data.slice().sort((a, b) => (a.date === b.date ? Number(a.post) - Number(b.post) : a.date < b.date ? -1 : 1));
       barChart(barBox, rows, totals.status === 'ok' && totals.data.length ? totals.data[0].best_post : null);
     } else if (posts.status === 'error') fail(barBox); else barBox.innerHTML = '';
     if (per.status === 'ok' && per.data.length) lineChart(lineBox, per.data);
@@ -422,13 +440,14 @@ dash.calc('per_post', {
     if (posts.status !== 'ok') return;
     const eng = new Map((per.status === 'ok' ? per.data : []).map((r) => [String(r.post), r.eng_rate]));
     const best = totals.status === 'ok' && totals.data.length ? String(totals.data[0].best_post) : null;
-    const rows = posts.data.slice().sort((a, b) => (a.date < b.date ? -1 : 1));
+    const rows = posts.data.slice().sort((a, b) => (a.date === b.date ? Number(a.post) - Number(b.post) : a.date < b.date ? -1 : 1));
     for (const r of rows) {
       const tr = document.createElement('tr');
       tr.dataset.key = r.post;
       if (String(r.post) === best) tr.className = 'is-best';
       const cell = (txt, cls) => { const td = document.createElement('td'); td.textContent = txt; if (cls) td.className = cls; tr.appendChild(td); return td; };
-      cell(r.post);
+      const pc = cell(r.post);
+      if (/trial/i.test(r.type || '')) { const b = document.createElement('span'); b.className = 'mg-badge'; b.textContent = 'TRIAL REEL'; pc.appendChild(b); tr.classList.add('is-trial'); }
       cell(dLong(day(r.date)));
       cell(fmt(n(r.views)), 'num');
       n(r.likes) == null ? cell('Hidden', 'num mg-muted') : cell(fmt(n(r.likes)), 'num');
@@ -467,18 +486,25 @@ dash.calc('per_post', {
       }
       return o;
     });
+  let all = [], mode = "all";
+  const bar = document.getElementById("post-filter");
+  const isTrial = (r) => /trial/i.test(r.type || "");
+  const apply = () => {
+    const rows = mode === "trial" ? all.filter(isTrial) : mode === "main" ? all.filter((r) => !isTrial(r)) : all;
+    bar.querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.f === mode));
+    dash._set(rows);
+  };
+  const setRows = (rows) => { all = rows; bar.hidden = !rows.some(isTrial); if (bar.hidden) mode = "all"; apply(); };
+  bar.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { mode = b.dataset.f; apply(); } });
   try {
     if (!REPORT.sheetCsv) throw 0;
     const res = await fetch(REPORT.sheetCsv + (REPORT.sheetCsv.includes("?") ? "&" : "?") + "t=" + Date.now());
     if (!res.ok) throw 0;
     const rows = parse(await res.text());
-    document.querySelector(".mg").classList.toggle("is-empty", rows.length === 0);
-    dash._set(rows);
+    setRows(rows);
     status.textContent = "Live data · updated " + new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" });
   } catch (e) {
-    const rows = parse(REPORT.fallbackCsv);
-    document.querySelector(".mg").classList.toggle("is-empty", rows.length === 0);
-    dash._set(rows);
+    setRows(parse(REPORT.fallbackCsv));
   }
 })();
 </script>
