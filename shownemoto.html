@@ -232,15 +232,46 @@ const REPORT = {
   // Google Sheet → File → Share → Publish to web → choose the tab → CSV → paste link here
   sheetCsv: "https://docs.google.com/spreadsheets/d/1rIvI02RFcvOrDkzoMxlhKCkOAIc13XQJYpFO6nB1b8M/gviz/tq?tqx=out:csv",
   // Used until sheetCsv is set (and if the sheet can't be reached)
-  fallbackCsv: `post,date,views,likes,comments,shares,link
-1,14/06/2026,2600000,159000,130,31100,https://www.instagram.com/reel/DZkREqVzRQD/
-2,16/06/2026,196000,9907,53,1307,https://www.instagram.com/reel/DZpRNK3zeZR/
-3,09/07/2026,80900,4438,19,629,https://www.instagram.com/reel/DajPR-Uz6Su/
-4,14/07/2026,127000,7537,81,1254,https://www.instagram.com/reel/Dau7f9CTMvI/
-5,29/07/2026,23000,627,4,46,https://www.instagram.com/reel/DbXPgg8tgRw/
-6,29/08/2026,21600,982,13,62,https://www.instagram.com/reel/Dcn4zYGuC_t/
-7,03/09/2026,14300,492,4,23,https://www.instagram.com/reel/DczmkvgTsSE/
-8,11/09/2026,19800,478,3,10,https://www.instagram.com/reel/DdJuyQ3TgJk/`
+  fallbackCsv: `post,date,views,likes,comments,shares,link,type
+1,14/06/2026,2700000,161000,129,32600,https://www.instagram.com/reel/DZkREqVzRQD/,
+2,16/06/2026,216000,11700,57,1650,https://www.instagram.com/reel/DZpRNK3zeZR/,
+3,09/07/2026,113000,6180,24,885,https://www.instagram.com/reel/DajPR-Uz6Su/,
+4,14/07/2026,129000,7607,80,1264,https://www.instagram.com/reel/Dau7f9CTMvI/,
+5,29/07/2026,23600,649,4,55,https://www.instagram.com/reel/DbXPgg8tgRw/,
+6,29/08/2026,22600,1004,13,62,https://www.instagram.com/reel/Dcn4zYGuC_t/,
+7,03/09/2026,16000,535,4,29,https://www.instagram.com/reel/DczmkvgTsSE/,
+8,11/09/2026,19800,478,3,10,https://www.instagram.com/reel/DdJuyQ3TgJk/,
+9,15/10/2026,10800,225,24,6,https://www.instagram.com/reel/Deff5j0h6lT/,
+10,15/10/2026,13100,304,9,53,https://www.instagram.com/reel/DehBFEphb15/,
+11,23/10/2026,11300,332,5,25,https://www.instagram.com/reel/De1jk0PzwMS/,
+12,23/10/2026,112000,3691,18,429,https://www.instagram.com/reel/De2C0Drh64O/,
+13,24/10/2026,19800,740,10,71,https://www.instagram.com/reel/De4FVekjdOA/,
+14,24/10/2026,11300,232,2,10,https://www.instagram.com/reel/De5KCUOggKR/,
+15,25/10/2026,604000,39200,56,6334,https://www.instagram.com/reel/De6qKdhDSwz/,
+16,26/10/2026,2800000,128000,196,33600,https://www.instagram.com/reel/De7uzKhDRIT/,
+17,26/10/2026,62900,1160,180,25,https://www.instagram.com/reel/De9BnNJh6xO/,
+18,26/10/2026,10700,269,3,13,https://www.instagram.com/reel/De9O_g2FSh1/,
+19,26/10/2026,14300,438,5,52,https://www.instagram.com/reel/De-WDYnDzHe/,
+20,27/10/2026,14800,228,13,4,https://www.instagram.com/reel/De_a0w8hF8u/,
+21,27/10/2026,12300,385,5,10,https://www.instagram.com/reel/De_zyRMDWnY/,
+22,28/10/2026,22600,290,11,8,https://www.instagram.com/reel/DfBGEHjJABv/,
+23,28/10/2026,17700,571,23,28,https://www.instagram.com/reel/DfA7XkWj1WK/,
+24,28/10/2026,13100,606,7,48,https://www.instagram.com/reel/DfCYkX-ju-7/,
+25,29/10/2026,20200,415,4,5,https://www.instagram.com/reel/DfE9WCUgvxe/,
+26,30/10/2026,10200,132,2,2,https://www.instagram.com/reel/DfGkIH2BU5H/,
+27,31/10/2026,6683,146,,13,https://www.instagram.com/reel/DfKG9yriQge/,
+28,31/10/2026,10000,151,8,2,https://www.instagram.com/reel/DfJJBIjhjDn/,
+29,31/10/2026,16600,149,5,3,https://www.instagram.com/reel/DfLt08ypm3X/,
+30,01/11/2026,203000,3555,43,280,https://www.instagram.com/reel/DfOT5F2Bdcj/,
+31,02/11/2026,10600,175,14,4,https://www.instagram.com/reel/DfQi3E2JezF/,
+32,02/11/2026,14800,218,19,5,https://www.instagram.com/reel/DfQi3E2JezF/,
+33,03/11/2026,21600,1094,10,263,https://www.instagram.com/reel/DfR1TGQAMbq/,
+34,04/11/2026,21400,783,6,63,https://www.instagram.com/reel/DfS5-FkDy_g/,
+35,04/11/2026,19200,329,5,2,https://www.instagram.com/reel/DfTP6NTBY5-/,
+36,06/11/2026,8625,221,,17,https://www.instagram.com/reel/DfZuFjRlTwu/,
+37,09/11/2026,20300,419,32,4,https://www.instagram.com/reel/DfgvqwqhX2d/,
+38,09/11/2026,113000,6021,4,875,https://www.instagram.com/reel/Dfie85to74O/,trial
+39,10/11/2026,17800,269,13,3,https://www.instagram.com/reel/DfjiNzhJVa6/,`
 };
 /* ================================================================= */
 
@@ -498,9 +529,18 @@ dash.calc('per_post', {
   bar.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { mode = b.dataset.f; apply(); } });
   try {
     if (!REPORT.sheetCsv) throw 0;
-    const res = await fetch(REPORT.sheetCsv + (REPORT.sheetCsv.includes("?") ? "&" : "?") + "t=" + Date.now());
-    if (!res.ok) throw 0;
-    const rows = parse(await res.text());
+    const id = (REPORT.sheetCsv.match(/\/d\/([^/]+)/) || [])[1];
+    const urls = [REPORT.sheetCsv, `https://docs.google.com/spreadsheets/d/${id}/export?format=csv`];
+    let rows = null;
+    for (const u of urls) {
+      try {
+        const res = await fetch(u + (u.includes("?") ? "&" : "?") + "t=" + Date.now());
+        if (!res.ok) continue;
+        const r = parse(await res.text());
+        if (r.length) { rows = r; break; }
+      } catch (_) {}
+    }
+    if (!rows) throw 0;
     setRows(rows);
     status.textContent = "Live data · updated " + new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" });
   } catch (e) {
